@@ -6,7 +6,7 @@
 
 # <a name="team-members"></a>Team Members
 * Choi Eunjoung([soleileun](https://github.com/soleileun))
-*
+* Lee JinYoung([leejinzero](https://github.com/leejinzero))
 *
 *
 *
