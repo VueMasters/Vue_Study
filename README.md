@@ -8,5 +8,5 @@
 * Choi EunJoung ([soleileun](https://github.com/soleileun))
 * Lee JinYoung ([leejinzero](https://github.com/leejinzero))
 * Kim HyeonUk ([tristan3716](https://github.com/tristan3716))
-*
+* Kim ChanYoung ([ghkdua1829](https://github.com/ghkdua1829))
 *
