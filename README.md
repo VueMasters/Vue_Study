@@ -1,4 +1,4 @@
-# Vue_Stduy
+# Vue_Study
 ![img](https://miro.medium.com/max/2430/0*ACa_IGNNWePVBRu8)
 
 # Table Contents
