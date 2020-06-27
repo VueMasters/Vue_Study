@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p v-bind:title="message">
+        오늘은?? 마우스를 올려보세요!
+      </p>
+
+      <p v-if="seen">제가 보이시나요??</p>
+
+      <ol>
+        <li v-for="todo in todos">
+          {{todo.text}}
+        </li>
+      </ol>
+
+      <p>
+        {{message2}}
+      </p>
+      <button v-on:click="reverseMessage">뒤집기</button>
+
+      <p>{{text}}</p>
+      <input v-model="text" />
+    </div>
+  </body>
+  <script>
+    let model = {
+      message: "안녕!! " + new Date(),
+      seen: true,
+      todos: [
+        { text: "vue 공부" },
+        { text: "자소서 쓰기" },
+        { text: "유투브 시청" },
+        { text: "면접 준비" },
+      ],
+      message2: "뒤집어봐랏!",
+      text: "",
+    };
+
+    let vi = new Vue({
+      el: "#app",
+      data: model,
+      methods: {
+        reverseMessage() {
+          this.message2 = this.message2.split("").reverse().join("");
+        },
+      },
+    });
+  </script>
+</html>
