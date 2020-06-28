@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{message}}
+    </div>
+
+    <div id="app-2">
+      <span v-bind:title="message">
+        마우스를 잠시 올리면 동적으로 바인딩 된 title을 볼 수 있음.
+      </span>
+      <!-- 여기에 마우스를 올리면 메시지를 볼수있음..! -->
+    </div>
+    <!-- v-bind 속성은 디렉티브라고 한다. 특수속성임을 나타내고 
+v- 접두어가 붙어있으면 렌더링 된 DOM에 특수 반응형 동작을 한다. 
+기본적으로 이 요소의 지정 속성 (여기서는 title) 으로 최신 상태를 유지한다.-->
+
+    <!-- 조건문-->
+    <div id="app-3">
+      <p v-if="seen">seen이 true일 때 보임</p>
+    </div>
+
+    <!-- 이 예제는 텍스트 속성뿐만 아니라 DOM구조에도 데이터를 바인딩 할 수 있음을 보여준다-->
+
+    <!-- 반복문 -->
+    <div id="app-4">
+      <ol>
+        <li v-for="todo in todos">
+          {{todo.text}}
+        </li>
+      </ol>
+    </div>
+
+    <!--사용자 입력 핸들링 1 : 버튼 -->
+    <div id="app-5">
+      <p>{{msg}}</p>
+      <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <!-- 사용자 입력 핸들링 2: v-model (양방향 바인드)-->
+    <div id="app-6">
+      <p>{{message}}</p>
+      <input v-model="message" />
+    </div>
+
+    <!-- 컴포넌트 시스템
+    작고 독립적이며 재사용할 수 있는 컴포넌트로 구성된 대규모 애플리케이션을 구축할 수 있게 해주는 추상적 개념.-->
+    <!-- Vue에서 컴포넌트는 미리 정의된 옵션을 가진 Vue 인스턴스이다. -->
+    <div id="app-7">
+      <ol>
+        <temp-item></temp-item>
+      </ol>
+    </div>
+
+    <!-- 부모 영여그이 데이터를 자식 컴포넌트에 전달하려고 함.-->
+    <div id="app-8">
+      <ol>
+        <todo-item v-for="item in box" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+      </ol>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: { message: "Hello World, Hello Vue!" },
+      });
+
+      var app2 = new Vue({
+        el: "#app-2",
+        data: {
+          message: "이 페이지는 " + new Date() + "에 로드되었습니다.",
+        },
+      });
+
+      app2.message = "새로운 메시지";
+
+      var app3 = new Vue({
+        el: "#app-3",
+        data: {
+          seen: true,
+        },
+      });
+
+      var app4 = new Vue({
+        el: "#app-4",
+        data: {
+          todos: [{ text: "JS 배우기" }, { text: "Vue 배우기" }, { text: "복습하기" }],
+        },
+      });
+
+      app4.todos.push({ text: "새로운 항목 추가하기" });
+
+      var app5 = new Vue({
+        el: "#app-5",
+        data: {
+          msg: "Hello World, Hello Vue!",
+        },
+        methods: {
+          reverseMessage: function () {
+            //  this.msg = this.msg.split("");
+            //[ "H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d", ",", " ", "H", "e", "l", "l", "o", " ", "V", "u", "e", "!" ]
+            // this.msg = this.msg.split("").reverse();
+            //[ "!", "e", "u", "V", " ", "o", "l", "l", "e", "H", " ", ",", "d", "l", "r", "o", "W", " ", "o", "l", "l", "e", "H" ]
+            this.msg = this.msg.split("").reverse().join("");
+            //!euV olleH ,dlroW olleH
+          },
+        },
+      });
+
+      var app6 = new Vue({
+        el: "#app-6",
+        data: {
+          message: "Bonjour, Vue!",
+        },
+      });
+
+      Vue.component("temp-item", {
+        template: "<li> 항목을 만듭니다. 직접 html을 작성하는 단계</li>",
+      });
+      var app6 = new Vue({
+        el: "#app-7",
+      });
+
+      Vue.component("todo-item", {
+        props: ["todo"],
+        template: "<li>{{todo.text}}</li>",
+      });
+
+      var app7 = new Vue({
+        el: "#app-8",
+        data: {
+          box: [
+            { id: 0, text: "pen" },
+            { id: 1, text: "paper" },
+            { id: 2, text: "book" },
+            { id: 3, text: "ipad" },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
