@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="example-1">
+      <li v-for="item in items">
+        {{ item.message }}
+      </li>
+    </ul>
+    <div id="app">
+      <li v-for="n in even(numbers)">{{ n }}</li>
+    </div>
+  </body>
+  <script>
+    var example1 = new Vue({
+      el: "#example-1",
+      data: {
+        items: [{ message: "Foo" }, { message: "Bar" }],
+      },
+    });
+
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        numbers: [1, 2, 3, 4, 5],
+      },
+      methods: {
+        even: function (numbers) {
+          return numbers.filter(function (number) {
+            return number % 2 === 0;
+          });
+        },
+      },
+    });
+    Vue.set(vm.userProfile, "age", 27);
+  </script>
+</html>

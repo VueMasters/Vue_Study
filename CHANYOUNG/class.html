@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-bind:class="{ active: isActive }"></div>
+      <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+    </div>
+
+    <h1 v-show="ok">안녕하세요!</h1>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        isActive: true,
+        hasError: false,
+      },
+    });
+  </script>
+</html>

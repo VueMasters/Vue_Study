@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <span id="ssafy">메시지: {{ msg }}</span>
+    <div id="example">
+      <p>원본 메시지: "{{ message }}"</p>
+      <p>역순으로 표시한 메시지: "{{ reversedMessage }}"</p>
+    </div>
+
+    <div id="demo">
+      <input v-model="firstName" />
+      {{ fullName }}
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#ssafy",
+      data: {
+        msg: "dlqpsldls",
+      },
+    });
+
+    var vm1 = new Vue({
+      el: "#example",
+      data: {
+        message: "안녕하세요",
+      },
+      computed: {
+        // 계산된 getter
+        reversedMessage: function () {
+          // `this` 는 vm 인스턴스를 가리킵니다.
+          return this.message.split("").reverse().join("");
+        },
+      },
+    });
+
+    var vm2 = new Vue({
+      el: "#demo",
+      data: {
+        firstName: "Foo",
+        lastName: "Bar",
+        fullName: "Foo Bar",
+      },
+      watch: {
+        firstName: function (val) {
+          this.fullName = val + " " + this.lastName;
+        },
+        lastName: function (val) {
+          this.fullName = this.firstName + " " + val;
+        },
+      },
+    });
+  </script>
+</html>
