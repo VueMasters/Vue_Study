@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+    />
+    <title>directive</title>
+    <style>
+      .main {
+        display: grid;
+        grid-template-columns: 4;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+      }
+
+      .image {
+        position: absolute;
+        width: 99%;
+        height: 67vw;
+        opacity: 50%;
+        background-color: #111;
+        z-index: 2;
+      }
+
+      .imges:hover {
+        background-color: #333;
+        opacity: 50%;
+      }
+
+      .detail {
+        width: 50%;
+        left: 25%;
+        top: 25%;
+      }
+
+      .btn {
+        right: 25%;
+        top: 20%;
+        background: none;
+        color: white;
+        font-size: 20px;
+      }
+
+      .question {
+        left: 25%;
+        top: 15%;
+        font-size: 30px;
+        color: white;
+      }
+
+      .answer {
+        left: 25%;
+        top: 20%;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="image" v-show="isShow"></div>
+      <input
+        class="answer"
+        v-show="isShow"
+        v-model="answer"
+        placeholder="키워드를 맞춰보세요!"
+        v-bind:style="myStyle"
+      />
+      <div class="question" v-show="isShow" v-if="answer == key" v-bind:style="myStyle">
+        정답입니다!
+      </div>
+      <div
+        class="question"
+        v-show="isShow"
+        v-else-if="key.indexOf(answer)!=-1  && answer!=''"
+        v-bind:style="myStyle"
+      >
+        정답에 가까워지고있어요!
+      </div>
+      <div
+        class="question"
+        v-show="isShow"
+        v-else-if="answer!=key && answer!=''"
+        v-bind:style="myStyle"
+      >
+        다시 해보시겠어요?
+      </div>
+      <button class="btn" v-show="isShow" v-on:click="close" v-bind:style="myStyle">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+      <img class="detail" v-show="isShow" v-bind:src="detailsrc" v-bind:style="myStyle" />
+      <div class="main">
+        <div v-for="pic in img">
+          <img
+            class="imges"
+            v-bind:src="pic.src"
+            v-on:click="showImg(pic.src, pic.keyword)"
+            style="width: 100%; z-index: 1;"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let img = [
+      {
+        src: "https://cdn.pixabay.com/photo/2016/02/27/06/43/cherry-tree-1225186_1280.jpg",
+        keyword: "벚꽃",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2017/07/31/16/12/laptop-2558666_1280.jpg",
+        keyword: "공부",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2016/11/29/05/01/lights-1867437_1280.jpg",
+        keyword: "따스함",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2015/06/25/17/56/people-821624_1280.jpg",
+        keyword: "친구",
+      },
+
+      {
+        src: "https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_1280.jpg",
+        keyword: "아이스크림",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2018/06/21/14/00/water-3488634_1280.jpg",
+        keyword: "물",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2013/02/21/19/06/beach-84533_1280.jpg",
+        keyword: "시원함",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2017/07/25/14/54/rain-2538429_1280.jpg",
+        keyword: "비",
+      },
+
+      {
+        src: "https://cdn.pixabay.com/photo/2018/03/02/19/21/nature-3194001_1280.jpg",
+        keyword: "새벽",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2016/02/10/00/07/bench-1190768_1280.jpg",
+        keyword: "낙옆",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg",
+        keyword: "숲",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2013/01/27/18/41/meadow-76358_1280.jpg",
+        keyword: "꽃",
+      },
+
+      {
+        src: "https://cdn.pixabay.com/photo/2016/03/04/16/03/snowflakes-1236245_1280.jpg",
+        keyword: "눈",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2016/11/29/04/17/bonfire-1867275_1280.jpg",
+        keyword: "불꽃",
+      },
+      {
+        src: "https://cdn.pixabay.com/photo/2016/02/07/19/50/snow-1185474_1280.jpg",
+        keyword: "차가움",
+      },
+      { src: "https://cdn.pixabay.com/photo/2020/04/30/20/14/sky-5114501_1280.jpg", keyword: "밤" },
+    ];
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        img,
+        isShow: false,
+        detailsrc: "",
+        answer: "",
+        key: "",
+        myStyle: { zIndex: 3, position: "absolute" },
+      },
+      methods: {
+        showImg(src, key) {
+          this.isShow = true;
+          this.answer = "";
+          this.detailsrc = src;
+          this.key = key;
+        },
+        close() {
+          this.isShow = false;
+        },
+      },
+    });
+  </script>
+</html>
