@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="example"></div>
+    <script>
+      var data = { a: 1 };
+      var vm = new Vue({
+        el: "#example",
+        data: data,
+      });
+
+      vm.$watch("a", function (newVal, oldVal) {
+        console.log("'a'값이 변하면 호출함.");
+      });
+
+      //각 Vue 인스턴스는 생성될 때 일련의 초기화 단계를 거친다.
+      // 데이터 관찰 설정이 필요한 경우에는 템플릿을 컴파일하는 경우, 인스턴스를 DOM에 마운트하는 경우
+      // 데이터가 변경되어 DOM을 업데이트 하는 경우
+      // 이 과정에서 사용자 정의 로직을 실행할 수 있는 라이프 사이클 훅도 호출됨.
+
+      new Vue({
+        data: {
+          x: 3,
+        },
+        // created: function () {
+        //   document.write(this.x);
+        // },
+        created() {
+          document.write(this.x);
+        },
+      });
+
+      // 모든 라이프사이클 훅은 this 컨텍스트가 호출하는 Vue 인스턴스를 가리키며 호출됨
+      //Vue 세계에서는 컨트롤러가 없다고 보면 된다.
+    </script>
+  </body>
+</html>
