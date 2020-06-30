@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todo</title>
+    <style>
+      #app {
+        border: double;
+        width: 30%;
+        padding: 10px;
+        position: absolute;
+        top: 10%;
+        left: 33%;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="main">
+        <form v-on:submit.prevent="addTodo" style="text-align: center;">
+          <h1>TODO LIST</h1>
+          <input
+            v-model="nextTodoText"
+            style="font-size: 15px;"
+            id="new-todo"
+            placeholder="예) 책상 정리하기"
+          />
+          <button>추가</button>
+        </form>
+        <ul>
+          <li
+            is="todo-item"
+            v-for="(todo, index) in todos"
+            v-bind:key="todo.id"
+            v-bind:title="todo.title"
+            v-bind:id="todo.id"
+            v-on:remove="todos.splice(index, 1)"
+            style="display: inline;"
+          ></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    Vue.component("todo-item", {
+      template: `<li>{{id}}. {{title}} 
+                    <button v-on:click="$emit('remove')">삭제</button><br>
+                </li>`,
+      props: ["title", "id"],
+    });
+
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        nextTodoText: "",
+        todos: [{ id: 1, title: "뷰 공부하기" }],
+        nextTodoId: 2,
+      },
+      methods: {
+        addTodo() {
+          this.todos.push({
+            id: this.nextTodoId++,
+            title: this.nextTodoText,
+          });
+          this.nextTodoText = "";
+        },
+      },
+    });
+  </script>
+</html>
