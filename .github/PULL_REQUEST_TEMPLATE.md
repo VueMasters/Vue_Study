@@ -1,5 +1,3 @@
-### What does this PR do?
+### 학습 내용
 
-### Why are we doing this?
-
-### Screenshots
+### 어려웠던 점 또는 이슈
