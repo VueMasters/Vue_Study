@@ -3,10 +3,10 @@
 > &nbsp;&nbsp;답변에 오류나 개인적인 의견이 있을 수 있으니 참고하여 주시기 바랍니다.
 
 # Contents
-- [x] [Vue는 MVVM 패턴과 관련이 없는가](#vuejs는-mvvm-패턴과-관련이-없는가)
+- [x] [Vue는 MVVM 인가](#vuejs는-mvvm-인가)
 - [ ] [Vue에서의 프록시란 무엇인가](#vue에서의-프록시란-무엇인가)
 
-# Vue.js는 MVVM 패턴과 관련이 없는가
+# Vue.js는 MVVM 인가
 
 Vue.js 2.x 버전 가이드를 살펴보면 다음과 같은 언급이 있다.
 
@@ -20,6 +20,8 @@ Vue.js 2.x 버전 가이드를 살펴보면 다음과 같은 언급이 있다.
 ![1.x Vue.js Design Pattern](https://v1.vuejs.org/images/mvvm.png "1.x Vue.js")
 
 &nbsp;&nbsp;하지만 최근 가이드에서 이미 확인했듯이 Vue.js는 엄밀한 의미의 MVVM이 아니다.
+
+&nbsp;&nbsp;v1까지의 공식문서에서는 Vue.js를 library 라고 지칭했지만, v2부터는 *progressive framework* 라는 표현을 이용하여 Vue를 설명한다.
 
 &nbsp;&nbsp;Vue.js는 MVVM과 유사한 구조를 가지고 있다. 이는 구버전의 가이드에서 Vue.js를 Library라고 지칭하다가, 2.x 버전에서 Framework로 바꾼 것과 유관하다고 생각되는데, Core library만을 살펴보면 MVVM과 상당히 흡사하다. 물론 컴포넌트는 View(template)를 포함하고 있고, Vuex는 Model의 역할, 일부 기능은 Controller의 역할도 수행한다.  
 

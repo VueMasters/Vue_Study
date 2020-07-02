@@ -14,17 +14,14 @@
 
 &nbsp;&nbsp;Vue는 사용자 UI를 위한 프레임워크이다. 코어 라이브러리는 뷰 레이어에만 초점을 맞추어 다른 라이브러리와 결합하고, 점진적으로 채택할 수 있다.
 
-&nbsp;&nbsp;Vue.js(Core)는 라이브러리이지만 컴포넌트, 라우팅, 상태관리 등 여러 기능을 종합하여 프레임워크처럼 사용할 수 있다. v1까지의 공식문서에서는 Vue.js를 library 라고 지칭했지만, v2부터는 *progressive framework* 라는 표현을 이용하여 Vue를 설명한다.
+&nbsp;&nbsp;Vue(Core)는 컴포넌트, 라우팅, 상태관리 등 여러 기능을 종합하여 프레임워크처럼 사용할 수 있다.  
 
 
-# \# What is MVVM
+# \# What is MVVM?
 &nbsp;&nbsp;Vue.js core library는 View 레이어에 집중한다. Vue의 모티브가 된 MVVM에서 기존의 View 레이어에 로직을 작성하는 방법은 View-Model간의 의존성이 커지게 되어 코드가 복잡해질수록 유지보수가 어려워진다는 단점이 있다. 따라서  이런 문제를 해결하고자 MVVM에서는 View와 ViewModel(ViewModel에서는 View의 존재를 알지 못함), View와 Model간의 의존성을 제거하였다. 
 
-자세한 설명이 필요할 듯하여 별도 문서로 분리 예정.
-
-
 > 엄격히 MVVM 패턴과 관련이 없지만 Vue의 디자인은 부분적으로 그것에 영감을 받았습니다. 관례적으로, Vue 인스턴스를 참조하기 위해 종종 변수 vm(ViewModel의 약자)을 사용합니다.  
-> [Vue.js는 MVVM 패턴과 관련이 없는가](/HYEONUK/Summary/Question.md#vuejs는-mvvm-패턴과-관련이-없는가)
+> [Vue.js는 MVVM 인가](/HYEONUK/Summary/Question.md#vuejs는-mvvm-인가)
 
 
 # \# Comparison with other frameworks
