@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div v-bind:class="[activeClass, errorClass]"></div>
+    <!-- 이렇게 배열의 형태로 전달할 수 있다.-->
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+    <!-- 삼항연산자도 사용가능-->
+    <div v-bind:class="[{ active: isActive }, errorClass]"></div>
+
+    <my-component class="baz boo"></my-component>
+
+    <script>
+      Vue.component("my-component", {
+        template: '<p class="foo bar">Hi</p>',
+      });
+    </script>
+  </body>
+</html>

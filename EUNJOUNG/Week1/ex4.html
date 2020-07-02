@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <span>메시지 : {{msg}}</span><br />
+      <span v-once>다시는 변경하지 않는 {{msg}}</span>
+      <span v-html="rawHtml"></span>
+      <!-- <div v-bind:id="dynamicId"></div> -->
+      <!-- 버튼 비활성화해버리기 -->
+      <button v-bind:disabled="isButtonDisabled">Button</button>
+      <!-- 자바스크립트 표현식 기능을 지원-->
+      <p>{{ number + 1 }}</p>
+      <p>{{ ok ? 'YES' : 'NO' }}</p>
+      <p>{{ msg.split('').reverse().join('') }}</p>
+      <!--var a = 1 또는 조건문같은거는 동작하지않음. 조건문을 사용하고싶다면 삼항연산자-->
+      <!-- 디렉티브는 v- 접두사가 있는 특수속성임 단일 자바스크립트 표현식(v-for)예외-->
+      <p v-if="seen">이제 나를 볼수 있어요</p>
+      <!-- v-bind, v-on:click-->
+      <a v-bind:href="url">여기로 이동?</a>
+      <a :href="url">위와 같음</a>
+      <a :[key]="url">이건?</a>
+      <button v-on:click="doSomething">v-on:click</button>
+      <a @click="doSomething">@click</a>
+      <a @[event]="doSomething">@[event]</a>
+      <!-- 동적 전달인자 값의 제약 : null을 제외하고는 string으로 변환
+    특수값인 null은 명시적으로 바인딩을 제거하는데 사용, string이 아니라면 경고 출력-->
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello",
+          rawHtml: "<p>v-html 사용</p>",
+          isButtonDisabled: true,
+          number: 7,
+          seen: true,
+          ok: null,
+          url: "https://kr.vuejs.org/v2/guide/syntax.html",
+          key: "href",
+          //doSomething: "true",
+          event: "click",
+        },
+        methods: {
+          doSomething: function () {
+            console.log("hi");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

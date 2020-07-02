@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div v-bind:class="{active : isActive}"></div>
+    <!-- active 클래스 속성이 isActive 의 참속성에 의해 결정됨-->
+    <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+    <!-- 렌더링 결과는 이렇게 됨 <div class="static active"></div>-->
+    <div v-bind:class="classObject"></div>
+
+    <div v-bind:class="[activeClass, errorClass]"></div>
+    <script>
+      new Vue({
+        data: {
+          isActive: true,
+          hasError: null,
+          //   classObject: {
+          //     active: true,
+          //     "text-danger": false,
+          //   },
+          //위와같이도 가능하나 computed에서도 바인딩 가능
+          computed: {
+            classObject: function () {
+              return {
+                active: this.isActive && !this.error,
+                "text-danger": this.error && this.error.type === "fatal",
+              };
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
