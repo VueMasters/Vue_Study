@@ -144,7 +144,15 @@ To https://github.com/tristan3716/Vue_Study.git
 
 필요한 내용들 채우고 (4) Create pull request 한다.
 
-### 4. 리뷰 => 머지
+### 4. PR 확인
 ![리뷰와 머지](/images/git_pull_request_review_and_merge.png)
 
-작성된 Pull request를 리뷰어가 확인 후 승인하고, 머지하면 끝.
+작성된 Pull request
+
+![댓글 작성 화면](/images/git_pull_request_comment.png)
+
+코드를 리뷰하며 댓글을 작성할 수 있다.
+
+![승인 화면](/images/git_pull_request_approve.png)
+
+풀리퀘스트를 승인한 후, 머지하면 끝.
