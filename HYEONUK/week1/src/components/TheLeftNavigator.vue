@@ -68,6 +68,12 @@ export default {
                 title: "TODO List"
             },
             {
+                type: "name",
+                depth: 1,
+                name: "acidrain",
+                title: "Acid Rain"
+            },
+            {
                 type: "spacer"
             }
         ]

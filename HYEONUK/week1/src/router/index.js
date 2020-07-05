@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Todo from "@/components/Todo";
 import MarkdownReader from "@/components/MarkdownReader";
 import Computed from "@/components/Computed";
+import AcidRain from "@/components/AcidRain";
 import NotFound from "@/components/NotFound";
  
 Vue.use(VueRouter);
@@ -23,19 +24,14 @@ const routes = [
         component: Computed,
     },
     {
+        path: "/acidrain",
+        name: "acidrain",
+        component: AcidRain,
+    },
+    {
         path: "/:name.md",
         name: "markdown",
         component: MarkdownReader,
-        beforeEnter: (to, from, next) => {
-            console.log(to);
-            console.log(from);
-            next();
-        },
-        beforeRouteEnter (to, from, next) {
-            console.log(to);
-            console.log(from);
-            next();
-        }
     },
     {
         path: "/404",

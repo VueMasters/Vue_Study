@@ -10,11 +10,17 @@
         <div>y : {{ y }}</div>
         <div>z : {{ z }}</div>
 
+
+        <div>getset test : {{ getset }}</div>
+
         <div>now: {{ date }}</div>
 
         <div>
-            <input v-model="message" />
+            <input v-model="y" />
+            <br>
+            {{getset}}
         </div>
+        
         <div v-for="n in 10" :key="n">reversed : {{ reversedMessage }}</div>
         <!-- 동일 인풋 캐싱 -->
     </div>
@@ -30,10 +36,14 @@ export default {
         question: "",
         answer: "질문을 하기 전까지는 대답할 수 없습니다."
     }),
+    beforeDestroy() {
+        clearInterval(this.dateInterval);
+    },
     created() {
         setTimeout(() => (this.y = "Not y"), 3000);
+        setTimeout(() => (this.getset = "by setter"), 3000);
         this.date = Date.now();
-        setInterval(() => {
+        this.dateInterval = setInterval(() => {
             this.date = Date.now(); // 종속성이 없는 Date.now() 등은 업데이트할 수 없음.
         }, 1000);
     },
@@ -47,6 +57,16 @@ export default {
         x() {
             console.log("computed - x");
             return this.y;
+        },
+        getset: {
+            get() {
+                console.log("get called");
+                return this.y;
+            },
+            set(newVal) {
+                console.log("set called");
+                this.set = newVal;
+            },
         }
     },
     watch: {
@@ -57,7 +77,7 @@ export default {
         y(newVal, oldVal) {
             console.log("watch - " + oldVal + " to " + newVal);
             this.z = newVal;
-        }
+        },
     },
     methods: {
         now() {
