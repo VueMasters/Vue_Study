@@ -5,6 +5,7 @@ import MarkdownReader from "@/components/MarkdownReader";
 import Computed from "@/components/Computed";
 import AcidRain from "@/components/AcidRain";
 import NotFound from "@/components/NotFound";
+import StopVsPrevent from "@/components/StopVsPrevent";
  
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
         path: "/acidrain",
         name: "acidrain",
         component: AcidRain,
+    },
+    {
+        path: "/stopvsprevent",
+        name: "stop-vs-prevent",
+        component: StopVsPrevent,
     },
     {
         path: "/:name.md",

@@ -74,6 +74,12 @@ export default {
                 title: "Acid Rain"
             },
             {
+                type: "name",
+                depth: 1,
+                name: "stop-vs-prevent",
+                title: "Stop vs Prevent"
+            },
+            {
                 type: "spacer"
             }
         ]
