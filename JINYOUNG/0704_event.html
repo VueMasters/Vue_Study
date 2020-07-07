@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Yeon+Sung:400" rel="stylesheet" />
+    <title>event</title>
+    <style>
+      * {
+        font-family: "Yeon Sung";
+      }
+
+      #container {
+        position: relative;
+        top: 200px;
+        width: 700px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background-color: darkblue;
+        border: 1px solid #333;
+      }
+
+      .head {
+        color: white;
+        font-size: 20px;
+        text-align: left;
+        display: inline;
+        letter-spacing: 5px;
+      }
+
+      .btn {
+        background: none;
+        color: white;
+        font-size: 10px;
+        float: right;
+      }
+
+      .main {
+        background-color: #a6a6a6;
+      }
+
+      .score {
+        display: grid;
+        grid-template-columns: 6;
+        grid-template-columns: repeat(6, 1fr);
+        border: 1px solid black;
+        font-size: 17px;
+      }
+
+      .score div {
+        border-right: 1px solid black;
+      }
+
+      .mainBox,
+      .inputBox {
+        font-size: 22px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="container">
+        <div class="header">
+          <div class="head">
+            &nbsp;한컴타자연습(놀이마당)
+            <button class="btn">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+        </div>
+        <div class="main">
+          <div class="score">
+            <div>&nbsp;&nbsp;정타 : {{correct}}</div>
+            <div>&nbsp;&nbsp;오타 : {{wrong}}</div>
+            <div class="rate">&nbsp;&nbsp;정확도 : {{correctRate}}%</div>
+            <div><strong style="color: yellow;">&nbsp;&nbsp;점수 : {{score}}</strong></div>
+          </div>
+          <div>
+            <br />
+            <div class="mainBox" v-for="(element,index) in words" :key="index">
+              {{element.word}}
+            </div>
+            <br />
+            <div class="inputBox"><input v-model="player" v-on:keyup.enter="game" /></div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let words = [
+      { word: "배겨나다" },
+      { word: "힘껏" },
+      { word: "떡잎" },
+      { word: "이불" },
+      { word: "쌀가게" },
+      { word: "보태다" },
+      { word: "참말" },
+      { word: "도가니" },
+      { word: "시궁창" },
+      { word: "찬장" },
+    ];
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        words,
+        correct: 0,
+        wrong: 0,
+        correctRate: 0,
+        score: 0,
+        player: "",
+        num: 0,
+      },
+      methods: {
+        game() {
+          console.log(this.words[this.num].word);
+          console.log(this.player);
+          if (this.player == this.words[this.num].word) {
+            this.words[this.num].word = "";
+            this.score += 10;
+            this.correct++;
+            this.num++;
+          } else {
+            this.wrong++;
+          }
+          this.player = "";
+          this.correctRate =
+            Math.round(((this.correct * 100) / (this.correct + this.wrong)) * 10) / 10;
+        },
+      },
+    });
+  </script>
+</html>
