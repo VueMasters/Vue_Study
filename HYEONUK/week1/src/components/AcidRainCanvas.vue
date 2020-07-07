@@ -37,10 +37,12 @@ export default {
     },
     methods: {
         endGame() {
+            // black overlay
             this.ctx.globalAlpha = 0.75;
             this.ctx.fillStyle = "black";
             this.ctx.fillRect(0, 0, this.$el.width, this.$el.height);
 
+            // white pop-up
             this.ctx.globalAlpha = 1;
             this.ctx.fillStyle = "white";
             this.ctx.fillRect(
@@ -50,6 +52,7 @@ export default {
                 this.$el.height / 2
             );
 
+            // score
             this.ctx.fillStyle = "black";
             const result = "Score: " + this.score;
             this.ctx.fillText(
@@ -59,21 +62,28 @@ export default {
             );
         },
         draw(words) {
+            // clear screen
             this.ctx.clearRect(0, 25, this.$el.width, this.$el.height - 25);
+            
+            // words
+            this.ctx.fillStyle = "black";
             for (let i = 0; i < words.length; i++) {
                 const word = words[i];
 
-                this.ctx.fillText(word.word, word.x, word.y);
+                this.ctx.fillText(word.text, word.x, word.y);
             }
 
+            // menus
             this.ctx.fillStyle = "black";
             this.ctx.fillRect(0, 0, 600, 40);
 
+            // score
             this.ctx.fillStyle = "white";
             this.ctx.fillText("Score: ", 5, 25);
 
             this.ctx.fillText(this.score, 70, 25);
 
+            // life
             this.ctx.fillStyle = "red";
             for (let i = 5; i > 0; i--) {
                 if (i <= this.leftLife) {
@@ -82,8 +92,6 @@ export default {
                     this.ctx.fill();
                 }
             }
-
-            this.ctx.fillStyle = "black";
         }
     }
 };

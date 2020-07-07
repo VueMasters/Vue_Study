@@ -36,6 +36,14 @@ const soundSuccess = new Audio(
 );
 soundSuccess.volume = 0.7;
 
+const probability = function(p) {
+    if (p) {
+        return Math.random() < p;
+    } else {
+        return false;
+    }
+};
+
 export default {
     name: "AcidRain",
     components: {
@@ -49,6 +57,7 @@ export default {
         score: 0,
         currentWords: [],
         wordsPool: AcidRainWords.words,
+        intervals: {}
     }),
     watch: {
         leftLife() {
@@ -61,32 +70,31 @@ export default {
         this.endGame();
     },
     created() {
-        this.wordsPool = Array.from(new Set(this.wordsPool));
-
-        this.dropHandler = setInterval(() => {
-            this.currentWords.forEach((e, i) => {
-                e.y += e.speed;
-                Vue.set(this.currentWords, i, e);
-                if (e.y > 410) {
-                    soundFail.play().catch(() => {});
-                    this.leftLife -= 1;
-                    this.currentWords.splice(i, 1);
-                    this.wordsPool.push(e.word);
-                }
-            });
-        }, 50);
-
         const WIDTH_MAX = 550;
         const WIDTH_MIN = 50;
 
         const SPEED_MIN = 1;
 
-        this.generateHandler = setInterval(() => {
-            if (Math.random() < 0.9) {
+        this.wordsPool = Array.from(new Set(this.wordsPool));
+
+        const dropInterval = setInterval(() => {
+            this.currentWords.forEach((currentWord, i) => {
+                this.moveWord(currentWord, i);
+            });
+        }, 50);
+
+        Vue.set(this.intervals, "drop", dropInterval);
+
+        const wordSpeedInterval = setInterval(() => {
+            if (probability(0.9)) {
                 this.speedMax += Math.random() * 0.1;
             }
+        }, 700);
 
-            if (Math.random() < 0.55) {
+        Vue.set(this.intervals, "wordSpeed", wordSpeedInterval);
+
+        const generateWordInterval = setInterval(() => {
+            if (probability(0.55)) {
                 const wordIndex = Math.floor(
                     Math.random() * this.wordsPool.length
                 );
@@ -100,7 +108,7 @@ export default {
                 const length = this.wordsPool[wordIndex].length;
 
                 this.currentWords.push({
-                    word: this.wordsPool[wordIndex],
+                    text: this.wordsPool[wordIndex],
                     x: xPosition > 250 ? xPosition - length * 10 : xPosition,
                     y: 0,
                     speed:
@@ -110,13 +118,32 @@ export default {
                 this.wordsPool.splice(wordIndex, 1);
             }
         }, 700);
+
+        Vue.set(this.intervals, "generateWord", generateWordInterval);
     },
     methods: {
+        moveWord(word, index) {
+            word.y += word.speed;
+            Vue.set(this.currentWords, index, word);
+            if (word.y > 410) {
+                this.missWord(word, index);
+            }
+        },
+        missWord(word, index) {
+            soundFail.play().catch(() => {});
+            this.leftLife -= 1;
+            this.currentWords.splice(index, 1);
+            this.wordsPool.push(word.text);
+        },
         endGame() {
-            this.playing = false;
+            this.releaseIntervals();
 
-            clearInterval(this.dropHandler);
-            clearInterval(this.generateHandler);
+            this.playing = false;
+        },
+        releaseIntervals() {
+            Object.keys(this.intervals).forEach(key => {
+                clearInterval(this.intervals[key]);
+            });
         },
         tryGuessing(keyword) {
             if (!keyword) {
@@ -125,11 +152,11 @@ export default {
 
             let success = false;
 
-            this.currentWords = this.currentWords.filter(e => {
-                if (e.word === keyword) {
+            this.currentWords = this.currentWords.filter(word => {
+                if (word.text === keyword) {
                     success = true;
                     this.score += 1;
-                    this.wordsPool.push(e.word);
+                    this.wordsPool.push(word.text);
                     return false;
                 } else {
                     return true;
