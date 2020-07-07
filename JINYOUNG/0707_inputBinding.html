@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inputBinding</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .main {
+        padding: 10px;
+        margin: auto;
+        position: relative;
+        top: 200px;
+      }
+
+      .main > input,
+      .main textarea {
+        padding: 5px;
+        width: 98%;
+      }
+
+      .main select {
+        padding: 5px;
+        width: 80%;
+      }
+
+      .typeBox {
+        padding: 10px;
+        border: 2px dotted;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="main" style="border: 1px solid; width: 50%;">
+        ID
+        <br />
+        <input v-model.trim="id" name="id" placeholder="양옆 공백은 포함이 되지 않습니다." />
+        <br /><br />
+
+        Password
+        <br />
+        <input type="password" v-model="pw" name="pw" />
+        <br /><br />
+
+        Name
+        <br />
+        <input v-model.trim="name" name="name" placeholder="양옆 공백은 포함이 되지 않습니다." />
+        <br /><br />
+
+        Age
+        <br />
+        <input v-model.number="age" type="number" />
+        <br /><br />
+
+        Type
+        <br />
+        <div class="typeBox">
+          <!-- radio형식의 type1 -->
+          <input type="radio" v-model="type1" id="male" value="남" />
+          <label for="male">남</label>
+
+          <input type="radio" v-model="type1" id="female" value="여" />
+          <label for="female">여</label>
+
+          &nbsp;
+          <!-- select형식의 type2 -->
+          <select v-model="type2">
+            <option disabled value="">Please select one</option>
+            <option>학생</option>
+            <option>직장인</option>
+            <option>취준생</option>
+            <option>기타</option>
+          </select>
+
+          <!-- checkbox형식의 type2 -->
+          <!-- <input type="radio" v-model="type2" id="student" value="학생" />
+          <label for="student">학생</label>
+          <input type="radio" v-model="type2" id="worker" value="직장인" />
+          <label for="worker">직장인</label>
+          <input type="radio" v-model="type2" id="job_seeker" value="취준생" />
+          <label for="job_seeker">취준생</label>
+          <input type="radio" v-model="type2" id="etc" value="기타" />
+          <label for="etc">기타</label> -->
+          <br />
+        </div>
+        <br />
+
+        Introduce
+        <br />
+        <textarea v-model="textBox" name="textBox"></textarea>
+
+        <br />
+        <button @click.prevent="check" style="float: right;">Submit</button>
+        <br />
+      </div>
+    </div>
+  </body>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        id: "",
+        pw: "",
+        textBox: "",
+        type1: "",
+        type2: "",
+        age: "",
+        name: "",
+      },
+      methods: {
+        check() {
+          alert(
+            "ID : " +
+              this.id +
+              "\n" +
+              "Password : " +
+              this.pw +
+              "\n" +
+              "Name : " +
+              this.name +
+              "\n" +
+              "Age : " +
+              this.age +
+              "\n" +
+              "Type : " +
+              this.type1 +
+              ", " +
+              this.type2 +
+              "\n" +
+              "Introduce : " +
+              this.textBox +
+              "\n"
+          );
+        },
+      },
+    });
+  </script>
+</html>
