@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="example-1">
+      <button v-on:click="counter += 1">Add 1</button>
+      <p>위 버튼을 클릭한 횟수는 {{ counter }} 번 입니다.</p>
+    </div>
+
+    <div id="example-2">
+      <!-- `greet`는 메소드 이름으로 아래에 정의되어 있습니다 -->
+      <button v-on:click="greet">Greet</button>
+    </div>
+
+    <div id="example-3">
+      <button v-on:click="say('hi')">Say hi</button>
+      <button v-on:click="say('what')">Say what</button>
+    </div>
+
+    <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+      Submit
+    </button>
+  </body>
+  <script>
+    var example1 = new Vue({
+      el: "#example-1",
+      data: {
+        counter: 0,
+      },
+    });
+
+    var example2 = new Vue({
+      el: "#example-2",
+      data: {
+        name: "Vue.js",
+      },
+      // 메소드는 `methods` 객체 안에 정의합니다
+      methods: {
+        greet: function (event) {
+          // 메소드 안에서 사용하는 `this` 는 Vue 인스턴스를 가리킵니다
+          alert("Hello " + this.name + "!");
+          // `event` 는 네이티브 DOM 이벤트입니다
+          if (event) {
+            alert(event.target.tagName);
+          }
+        },
+      },
+    });
+
+    new Vue({
+      el: "#example-3",
+      methods: {
+        say: function (message) {
+          alert(message);
+        },
+      },
+    });
+
+    /* 
+    이벤트 핸들러 내부에서 event.preventDefault() 또는 event.stopPropagation()를 호출하는 것은 매우 보편적인 일입니다. 
+    메소드 내에서 쉽게 이 작업을 할 수 있지만, DOM 이벤트 세부 사항을 처리하는 대신 데이터 로직에 대한 메소드만 사용할 수 있으면 더 좋을 것입니다.
+     */
+  </script>
+</html>
