@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>capture&self&passive</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- @click시는 이벤트가 전파됨 : 자식 -> 부모 순 -->
+      <!-- capture : 먼저 호출됨.. 3누를시 원래는 3->2->1, 적용시 위 capture부터 1->2->3-->
+      <div id="first" style="background-color: red; padding: 10px;" @click.capture="func('1')">
+        capture 1
+        <div id="second" style="background-color: blue; padding: 10px;" @click.capture="func('2')">
+          capture 2
+          <div
+            id="third"
+            style="background-color: yellow; padding: 10px;"
+            @click.capture="func('3')"
+          >
+            capture 3
+          </div>
+        </div>
+      </div>
+      <br />
+      <!-- self : 자기 자신 부를때만 호출 됨 -->
+      <div id="first" style="background-color: red; padding: 10px;" @click.self="func('1')">
+        self 1
+        <div id="second" style="background-color: blue; padding: 10px;" @click="func('2')">
+          self 2
+          <div id="third" style="background-color: yellow; padding: 10px;" @click="func('3')">
+            self 3
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <!-- once : 한번만 실행됨 -->
+      <div id="first" style="background-color: red; padding: 10px;" @click.once="func('1')">
+        once
+      </div>
+    </div>
+  </body>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      methods: {
+        func(num) {
+          alert(num + "이 호출됨");
+        },
+      },
+    });
+  </script>
+</html>

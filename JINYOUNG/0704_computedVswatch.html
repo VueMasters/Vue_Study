@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+    <title>computedVswatch</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>원본 메세지 : <input v-model="message" /></p>
+      <p>뒤집은 메세지 : {{reverseMessage}}</p>
+      <p>computed now : {{now}}</p>
+      <p>method now : {{date}}</p>
+      <p>선행 : <input v-model="before" /></p>
+      <p>후행 : <input v-model="after" /></p>
+      <p>watch 결과 : {{result}}</p>
+      <p>computed 결과 : {{real}}</p>
+      <p>setData: {{setData}}<input v-model="setter" /></p>
+      <p>
+        yes/no 질문을 물어보세요:
+        <input v-model="question" />
+      </p>
+      <p>{{ answer }}</p>
+    </div>
+  </body>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        message: "안녕하세요!",
+        before: "하나",
+        after: "둘",
+        result: "하나 둘",
+        date: "",
+        setter: "",
+        question: "",
+        answer: "질문을 하기 전까지는 대답할 수 없습니다.",
+      },
+      created() {
+        this.date = this.time();
+        setInterval(() => {
+          this.date = this.time();
+        }, 1000);
+      },
+
+      //계산된(캐싱된) 결과 즉, 데이터가 바뀌기 전까지 캐싱된 값 이용! (methods와의 차이점)
+      computed: {
+        reverseMessage() {
+          return this.message.split("").reverse().join("");
+        },
+        //업데이트 계속되지 않음!
+        now() {
+          return Date.now();
+        },
+
+        //getter , setter
+        setData: {
+          get: function () {
+            console.log("get!!");
+            return this.setter;
+          },
+          set: function () {
+            console.log("set!!");
+          },
+        },
+
+        //computed 속성은 계산해야 하는 목표 데이터를 정의하는 방식으로 소프트웨어 공학에서 이야기하는 ‘선언형 프로그래밍’ 방식
+        real() {
+          return this.before + " " + this.after;
+        },
+      },
+      //watch 속성은 감시할 데이터를 지정하고 그 데이터가 바뀌면 이런 함수를 실행하라는 방식으로 소프트웨어 공학에서 이야기하는 ‘명령형 프로그래밍’ 방식
+      //데이터 변경에 대한 응답으로 비동기식 또는 시간이 많이 소요되는 조작을 수행하려는 경우에 가장 유용
+      watch: {
+        before(val) {
+          this.result = val + " " + this.after;
+        },
+        after(val) {
+          this.result = this.before + " " + val;
+        },
+
+        // 질문이 변경될 때 마다 이 기능이 실행됩니다.
+        question: function (newQuestion) {
+          this.answer = "입력을 기다리는 중...";
+          this.getAnswer();
+        },
+      },
+      methods: {
+        time() {
+          return Date.now();
+        },
+        getAnswer: _.debounce(
+          function () {
+            if (this.question.indexOf("?") === -1) {
+              this.answer = "질문에는 일반적으로 물음표가 포함 됩니다. ;-)";
+              return;
+            }
+            this.answer = "생각중...";
+            var vm = this;
+            axios
+              .get("https://yesno.wtf/api")
+              .then(function (response) {
+                vm.answer = _.capitalize(response.data.answer);
+              })
+              .catch(function (error) {
+                vm.answer = "에러! API 요청에 오류가 있습니다. " + error;
+              });
+          },
+          // 사용자가 입력을 기다리는 시간(밀리세컨드) 입니다.
+          500
+        ),
+      },
+    });
+  </script>
+</html>

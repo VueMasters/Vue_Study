@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stopVSprevent</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <a href="/" @click="event('a')">
+          <button @click.prevent.stop="event('button')">Prevent & stop</button>
+        </a>
+      </div>
+      <div>
+        <!-- prevent : 해당 태크 기능 중지 -->
+        <a href="/" @click="event('a')">
+          <button @click.prevent="event('button')">Prevent</button>
+        </a>
+      </div>
+      <div>
+        <!-- stop : 이벤트 전파 중단 -->
+        <a href="/" @click="event('a')">
+          <button @click.stop="event('button')">Stop</button>
+        </a>
+      </div>
+      <div>
+        <a href="/" @click="event('a')">
+          <button @click="event('button')">Nothing</button>
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      methods: {
+        event(tag) {
+          console.log(tag);
+        },
+      },
+    });
+  </script>
+</html>
