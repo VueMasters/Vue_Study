@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      현재 잔고: <span>{{balance}}</span> <br />
+
+      <label>거래금액</label><input type="number" v-model="amount" />
+
+      <button @click="deposite">입금</button>
+      <button @click="withdraw">출금</button>
+      <div>
+        <ul v-for="(value,key) in flows">
+          {{key+1}}번째 거래<br />
+          잔액 = {{value}}
+          <hr>
+        </ul>
+        <hr />
+        <ul v-for="(value2,key) in type">
+          <p v-if="key!=0">
+            {{key}}번째 거래 <br />
+            거래 내용: {{value2}}
+            <hr>
+          </p>
+        </ul>
+    </div>
+  </body>
+  <script>
+    let vi = new Vue({
+      el: "#app",
+      data: {
+        amount: 0,
+        balance: 1000000,
+        flows: [],
+        i: 0,
+        type: [],
+      },
+      methods: {
+        withdraw() {
+          if (this.balance > this.amount) {
+            this.balance -= this.amount;
+            this.flows[this.i] = this.balance;
+            this.i += 1;
+            if(this.amount==0){
+                this.type[this.i] = "그대로"
+            }
+            this.type[this.i] = "출금";
+            console.log(this.i);
+          } else {
+            alert("잔액부족");
+          }
+        },
+        deposite() {
+          this.balance += parseInt(this.amount);
+          this.flows[this.i] = this.balance;
+          this.i += 1;
+          this.type[this.i] = "입금";
+          console.log(this.i);
+        },
+      },
+    });
+  </script>
+</html>

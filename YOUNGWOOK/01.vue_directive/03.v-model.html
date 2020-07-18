@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- v-model 이란? View와 Model 사이의 양방향 데이터 바인딩에 사용되는 디렉티브!-->
+    <div id="select">
+      <label>중국집에서 뭐시킬래?</label>
+      <!-- trim : 공백 제거 -->
+      <input type="text" v-model.trim="favorite" /><br />
+      <label>메뉴를 선택하세요</label>
+      <input type="checkbox" value="짜장" v-model="menu" /><label>자장면</label>
+      <input type="checkbox" value="짬뽕" v-model="menu" /><label>짬뽕</label>
+      <input type="checkbox" value="볶음밥" v-model="menu" /><label
+        >볶음밥</label
+      ><br />
+        <!-- 
+            lazy : 입력폼에서 change 이벤트가 발생하면 데이터 동기화
+            number : 입력값은 parseInt or paeseDouble을 이용하여 number type으로 저장
+        -->
+      <label>시킨 날짜는?</label>
+      <input text="text" v-model.lazy.number="year" />
+      </div>
+    <div id="result">
+        <p>
+            <ul>
+                <li>선호: {{favorite}}</li>
+                <li>팀: {{menu}}</li>
+                <li>시킨날짜: {{year}}</li>
+            </ul>
+        </p>
+    </div>
+  </body>
+  <script>
+    let model = { favorite: " ", menu: [], year: " " };
+    let select = new Vue({
+      el: "#select",
+      data: model,
+    });
+    let result = new Vue({
+      el: "#result",
+      data: model,
+    });
+  </script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!--ul id="list">
+        <li class="red-accent">클래스 바인딩</li>
+        <li style="color: blue;">스타일 바인딩</li>
+        <li>
+          <a href="http://google.com" title="구글로">가자</a>
+        </li>
+      </ul-->
+      <ul v-bind:id="mid">
+        <li :class="mclass">클레스 바인딩</li>
+        <li :style="mstyle">스타일 바인딩</li>
+        <li>
+          <a :href="link.to" :title="link.title">가자</a>
+        </li>
+      </ul>
+    </div>
+    <div id="app2">
+      <div :class="{set1: s1,set2: s2,set3:s3}">
+        여기에 머 쓰면 스타일이 바뀜?
+      </div>
+    </div>
+  </body>
+  <script>
+    let model = {
+      mid: "list",
+      mclass: "red-accent",
+      mstyle: "color:blue",
+      link: {
+        to: "http://google.com",
+        title: "구글로",
+      },
+    };
+    let vue = new Vue({
+      el: "#app",
+      data: model,
+    });
+    let vm = new Vue({
+      el: "#app2",
+      data: {
+        s1: true,
+        s2: false,
+        s3: true,
+      },
+    });
+  </script>
+  <style>
+    .set1 {
+      background: aqua;
+      color: purple;
+    }
+    .set2 {
+      text-decoration: red;
+      font-style: italic;
+    }
+    .set3 {
+      border: 1px solid blue;
+    }
+  </style>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="checkbox" v-model="select" value="0" /> 가위
+      <input type="checkbox" v-model="select" value="1" /> 바위
+      <input type="checkbox" v-model="select" value="2" /> 보
+      <ol>
+        {{user()}}
+      </ol>
+      <br />
+      <hr />
+      <button @click="computer">컴퓨터 결과</button>
+      <ol>
+        {{computer()}}
+      </ol>
+      <hr />
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        select: ["가위", "바위", "보"],
+        customer: 0,
+        com: -1,
+      },
+      methods: {
+        computer() {
+          this.com = Math.floor(Math.random() * 3);
+          return this.select[this.com];
+        },
+        user() {
+          return this.select[this.customer];
+        },
+      },
+    });
+  </script>
+</html>

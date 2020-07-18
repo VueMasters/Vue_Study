@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <label>숫자를 입력해라! </label>
+      <input type="number" v-model="num" />
+      <li>{{sum()}}</li>
+    </div>
+  </body>
+  <script>
+    let model = {
+      num: 0,
+    };
+    let vi = new Vue({
+      el: "#app",
+      data: model,
+      //computed는 이미 계산된 속성이다.
+      methods: {
+        sum() {
+          let result = 0;
+          for (let i = 1; i <= this.num; i++) {
+            result += i;
+          }
+          return result;
+        },
+      },
+    });
+  </script>
+</html>
