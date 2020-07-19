@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <child-component propsData="직접 값을 줄수도 있어?"> </child-component>
+      <child-component v-bind:propsData="message"></child-component>
+    </div>
+  </body>
+  <script>
+    Vue.component("child-component", {
+      props: ["propsdata"],
+      template: `<p>이거 받았냐: {{propsdata}}</p>`,
+    });
+    new Vue({
+      el: "#app",
+      data: {
+        message: "이거 써봐",
+      },
+    });
+  </script>
+</html>

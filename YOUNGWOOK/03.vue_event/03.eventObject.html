@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="canvas" @click="clicked" @mousemove="moved($event)"></div>
+      <input type="text" name="event" id="name" v-model="status" />
+      <input type="text" name="x" id="x" v-model="x" />
+      <input type="text" name="y" id="y" v-model="y" />
+    </div>
+  </body>
+  <script>
+    let vi = new Vue({
+      el: "#app",
+      data: {
+        x: 0,
+        y: 0,
+        status: "이벤트",
+      },
+      methods: {
+        clicked(e) {
+          this.x = e.clientX;
+          this.y = e.clientY;
+          this.status = "클릭";
+          console.log(this.status);
+        },
+        moved(e) {
+          this.x = e.clientX;
+          this.y = e.clientY;
+          this.status = "이동";
+        },
+      },
+    });
+  </script>
+</html>
