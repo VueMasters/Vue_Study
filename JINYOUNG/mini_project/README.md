@@ -1,4 +1,4 @@
-# calculator
+# mini_project
 
 ## Project setup
 ```
