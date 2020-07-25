@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>component2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>음식 : <custom-input :value.sync="eat"></custom-input></div>
+      <div>쇼핑 : <custom-input v-model="shopping"></custom-input></div>
+      <div>할인 : <custom-input v-model="discount"></custom-input></div>
+      <div>전체 : $ {{total}}</div>
+    </div>
+  </body>
+  <script>
+    let customInput = {
+      template: `<span>$ <input ref="cinput" v-bind:value="value" v-on:input="updateValue($event.target.value)"><br></span>`,
+      props: ["value"],
+      methods: {
+        updateValue(value) {
+          var formattedValue = value
+            .trim() //공백
+            .slice(0, value.indexOf(".") === -1 ? value.length : value.indexOf(".") + 3); //소수 2자리
+
+          if (formattedValue !== value) {
+            //정규화되지 않을 때 수동으로 재정의
+            this.$refs.cinput.value = formattedValue;
+          }
+
+          this.$emit("input", Number(formattedValue)); //사용자 정의 이벤트로 값을 내보냄
+          this.$emit("update:value", Number(formattedValue)); //사용자 정의 이벤트로 값을 내보냄
+        },
+      },
+    };
+
+    new Vue({
+      el: "#app",
+      data: { eat: 0, shopping: 0, discount: 0 },
+      components: { customInput },
+
+      computed: {
+        total() {
+          return ((this.eat * 100 + this.shopping * 100 - this.discount * 100) / 100).toFixed(2);
+        },
+      },
+    });
+  </script>
+</html>

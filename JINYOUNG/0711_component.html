@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <global-component></global-component>
+      <local-component message="안녕!" v-bind="todo" my-case="하이"></local-component>
+      <input type="text" v-model="todo.text" /><br />
+      <div>
+        <div>{{totalCounter}}</div>
+        <simple-button v-on:parent="totalIncrement"></simple-button>
+        <simple-button @parent="totalIncrement"></simple-button>
+        <simple-button @parent="totalIncrement"></simple-button>
+      </div>
+    </div>
+  </body>
+  <template id="local-component-template">
+    <div>
+      <div>지역 컴포넌트입니다.</div>
+      <div>{{message}}</div>
+      <div>{{myCase}}</div>
+      <div>{{text}}</div>
+      <div>{{isComplete}}</div>
+    </div>
+  </template>
+  <script>
+    //전역 컴포넌트
+    Vue.component("globalComponent", {
+      template: `<div>전역 컴포넌트입니다.</div>`,
+    });
+
+    //지역 컴포넌트
+    let localComponent = {
+      template: "#local-component-template",
+      props: {
+        message: String,
+        myCase: {
+          type: String,
+          default: "기본값",
+        },
+        text: String,
+        isComplete: Boolean,
+      },
+    };
+
+    let simpleButton = {
+      template: `<button @click="childIncrement">{{counter}}</button>`,
+      //data는 항상 함수형태!
+      data() {
+        return {
+          counter: 0,
+        };
+      },
+      methods: {
+        childIncrement() {
+          this.counter += 1;
+          this.$emit("parent");
+        },
+      },
+    };
+
+    new Vue({
+      el: "#app",
+      data: {
+        todo: {
+          text: "test",
+          isComplete: false,
+        },
+        totalCounter: 0,
+      },
+      components: { localComponent, simpleButton },
+      methods: {
+        totalIncrement() {
+          this.totalCounter += 1;
+        },
+      },
+    });
+  </script>
+</html>
