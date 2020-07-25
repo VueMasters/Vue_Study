@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <user-info-comp
+        v-bind:user-name="userName"
+        v-bind:user-age="userAge"
+      ></user-info-comp>
+    </div>
+  </body>
+  <script type="text/x-template" id="userInfoTemp">
+    Vue.component("user-info-comp", {
+      template: "#userInfoTemp",
+      props: ["userName", "userAge"],
+    });
+
+    let vi = new Vue({
+      el: "#app",
+      data: {
+        userName: "홍길동",
+        userAge: 30,
+      },
+    });
+  </script>
+</html>

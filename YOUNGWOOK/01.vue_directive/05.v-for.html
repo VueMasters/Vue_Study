@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h3>객체 데이터 표현</h3>
+      <ul>
+        <li v-for="(value,key,index) in ironMan" :key="key">
+          {{index}}, {{key}}, {{value}}
+        </li>
+      </ul>
+      <h3>배열 데이터 표현</h3>
+      <ul>
+        <li v-for="(value,key) in heroes" v-if="key%2==0">{{key}},{{value}}</li>
+      </ul>
+
+      <template v-for="(value,key) in heroes">
+        <div>
+          <p>등장순서:{{key}}, 이름:{{value}}</p>
+        </div>
+        <hr v-if="key%2==0" />
+      </template>
+    </div>
+  </body>
+  <script>
+    let model = {
+      heroes: ["아이언맨", "헐크", "캡틴아메리카", "비전"],
+      ironMan: {
+        name: "Tonny Stark",
+        nickName: "깡통",
+      },
+    };
+    let app = new Vue({
+      el: "#app",
+      data: model,
+    });
+  </script>
+</html>

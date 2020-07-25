@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="my">
+      <my-component></my-component>
+      <your-component></your-component>
+      <option-component></option-component>
+      <select-comp></select-comp>
+    </div>
+    <template id="body-template">
+      <div>body영역에 정의한 Template</div>
+    </template>
+    <script type="text/x-template" id="select">
+      <select>
+          <option-component></option-component>
+          <option-component></option-component>
+      </select>
+    </script>
+  </body>
+  <script>
+    Vue.component("my-component", {
+      template: "<div>Hello Component!!</div>",
+    });
+    Vue.component("your-component", {
+      template: "#body-template",
+    });
+    Vue.component("option-component", {
+      template: "<option>Hello option</option>",
+    });
+    Vue.component("select-comp", {
+      template: "#select",
+    });
+
+    let vi = new Vue({
+      el: "#my",
+    });
+  </script>
+</html>

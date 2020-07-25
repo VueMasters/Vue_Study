@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <comp-1></comp-1>
+      <comp-2></comp-2>
+    </div>
+  </body>
+  <script>
+    let eventBue = new Vue();
+    Vue.component("comp-1", {
+      template: `<input type="text" @change="trans">`,
+      methods: {
+        trans(e) {
+          eventBus.$emit("gogo", e.target.value);
+        },
+      },
+    });
+    Vue.component("comp-2", {
+      template: `<span>{{msg}}</span>`,
+      data: function () {
+        return {
+          msg: "message",
+        };
+      },
+      created() {
+        eventBus.$on("gogo", this.update);
+      },
+      methods: {
+        update(data) {
+          this.msg = data;
+        },
+      },
+    });
+  </script>
+</html>

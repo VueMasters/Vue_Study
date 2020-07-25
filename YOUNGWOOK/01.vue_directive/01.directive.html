@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <ul id="app">
+      <li>{{message}}</li>
+      <li v-text="message"></li>
+      <li v-html="message"></li>
+      <!--
+          v-html은 model에 악의적인 javascript가 심어져 있을 수 있으니
+          v-text를 사용하자. 
+          v-once는 한번 사용 후 연동하면 반응형이 제거된다.
+      -->
+      <li v-once>{{message}}</li>
+    </ul>
+  </body>
+  <script>
+    let model = {
+      message: "<i>Hi vue</i>",
+    };
+    let vi = new Vue({
+      el: "#app",
+      data: model,
+    });
+  </script>
+</html>

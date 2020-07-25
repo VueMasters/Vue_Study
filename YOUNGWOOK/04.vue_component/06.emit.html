@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <child-comp @receive_send_log="printLog"></child-comp>
+    </div>
+  </body>
+  <script>
+    Vue.component("child-comp", {
+      template: "<button @click='sendLog'>click</button>",
+      methods: {
+        sendLog() {
+          this.$emit("receive_send_log", "이거보시라오");
+        },
+      },
+    });
+    let vi = new Vue({
+      el: "#app",
+      methods: {
+        printLog(msg) {
+          console.log("who call me: " + msg);
+        },
+      },
+    });
+  </script>
+</html>

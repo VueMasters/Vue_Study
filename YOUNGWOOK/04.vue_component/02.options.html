@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <time-component></time-component>
+    </div>
+
+    <script type="text/x-template" id="timeTemplate">
+      <div>
+          <button @click="getTime()">현재시각</button>
+          <span>{{current}}</span>
+      </div>
+    </script>
+  </body>
+  <script>
+    Vue.component("time-component", {
+      template: "#timeTemplate",
+      data: function () {
+        return {
+          current: 0,
+        };
+      },
+      methods: {
+        getTime() {
+          this.current = new Date().getTime();
+        },
+      },
+    });
+    let vi = new Vue({
+      el: "#app",
+    });
+  </script>
+</html>

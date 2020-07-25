@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="info">
+      <label>나이를 입력하세요</label>
+      <input type="text" v-model="age" /><br />
+      <!-- 자주바뀐다면 v-show 아니라면 v-if-->
+      <img v-if="age<0" src="../images/error.png" />
+      <img v-show="age<0" src="../images/error.png" />
+      당신은
+      <span v-if="age<0">입력오류</span>
+      <span v-else-if="age<8">미취학</span>
+      <span v-else-if="age<19">미청년</span>
+      <span v-else>성년</span>
+    </div>
+  </body>
+  <script>
+    let model = {
+      age: "",
+    };
+    let info = new Vue({
+      el: "#info",
+      data: model,
+    });
+  </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="number" v-model="x" />
+      +
+      <input type="number" v-model="y" />={{sum}}
+    </div>
+  </body>
+  <script>
+    let vi = new Vue({
+      el: "#app",
+      data: {
+        person: {
+          name: "고영욱",
+          age: 30,
+        },
+        x: 0,
+        y: 0,
+        sum: 0,
+      },
+      watch: {
+        x(newValue) {
+          console.log("x변경!!");
+          this.sum = parseInt(newValue) + parseInt(this.y);
+        },
+        y(newValue) {
+          console.log("y변경!");
+          this.sum = parseInt(this.x) + parseInt(newValue);
+        },
+        person: {
+          deep: true,
+          handler: function (val) {
+            console.log("person change: ", val.name, val.age);
+          },
+        },
+      },
+    });
+  </script>
+</html>

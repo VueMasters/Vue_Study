@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <!--div id="app">
+      <form action="#" @submit.prevent="login">
+        ID:<input type="text" placeholder="Id는 4글자 이상이오" v-model="id" />
+        <input type="submit" />
+      </form>
+    </div-->
+    <hr />
+    <div id="app">
+      <label for="id">아이디</label>
+      <input
+        type="text"
+        name="id"
+        id="id"
+        @keyup.prevent.enter="next"
+        v-model.lazy="id"
+      />
+      <input type="password" ref="pass" @keyup.enter="search" />
+      <input type="button" value="제출" />
+    </div>
+  </body>
+  <script>
+    /*
+    new Vue({
+      el: "#app",
+      data: {
+        id: "",
+      },
+      methods: {
+        login(e) {
+          if (this.id.length >= 4) {
+            e.target.submit();
+            alert(this.id);
+          } else {
+            alert("ID를 4글자 이상 넣으시오");
+          }
+        },
+        result() {
+          alert(this.id);
+        },
+      },
+    });
+    */
+    new Vue({
+      el: "#app",
+      data: {
+        id: "",
+      },
+      methods: {
+        next() {
+          let pass = this.$ref.pass;
+          console.log(pass);
+          pass.focus();
+        },
+        login() {
+          console.log("로그인처리");
+        },
+        search() {
+          console.log("id: " + this.id);
+        },
+      },
+    });
+  </script>
+</html>
