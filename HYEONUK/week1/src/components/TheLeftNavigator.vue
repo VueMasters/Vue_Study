@@ -32,19 +32,19 @@ export default {
             {
                 type: "path",
                 depth: 1,
-                path: "Vue.md",
+                path: "/Vue.md",
                 title: "What is Vue"
             },
             {
                 type: "path",
                 depth: 1,
-                path: "Question.md",
+                path: "/Question.md",
                 title: "My Questions..."
             },
             {
                 type: "path",
                 depth: 1,
-                path: "Todo.md",
+                path: "/Todo.md",
                 title: "Todo"
             },
             {
@@ -78,6 +78,24 @@ export default {
                 depth: 1,
                 name: "stop-vs-prevent",
                 title: "Stop vs Prevent"
+            },
+            {
+                type: "name",
+                depth: 1,
+                name: "ErrorTest",
+                title: "If server not response"
+            },
+            {
+                type: "path",
+                depth: 1,
+                path: "/prop-test/4",
+                title: "Prop-test-4"
+            },
+            {
+                type: "path",
+                depth: 1,
+                path: "/prop-test/5",
+                title: "Prop-test-5"
             },
             {
                 type: "spacer"
